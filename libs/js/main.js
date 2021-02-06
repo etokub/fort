@@ -100,30 +100,64 @@ var infoSlider = tns({
 });
 
 
+const navTgl = document.querySelector("#nav-tgl");
+const navMobile = document.querySelector(".header-navigation");
+navTgl.onclick = function() {
+  navTgl.classList.toggle('is-open');
+  navMobile.classList.toggle('is-open');
+}
 
-const videoPlay = document.querySelectorAll(".modal__tgl");
-const demoVideo = document.querySelector(".modal");
-// const jsVideo = document.querySelector(".js-video");
-const videoClose = document.querySelectorAll(".modal__cls");
+
+
+const modalOpen = document.querySelectorAll("[data-m-open]");
+const modal = document.querySelector(".modal");
+const modalClose = document.querySelectorAll("[data-m-close]");
 const page = document.querySelector("html");
-
-var videoPlayBtns = videoPlay;
-videoPlayBtns.forEach(function(btn){
+var modalOpenBtns = modalOpen;
+modalOpenBtns.forEach(function(btn){
   btn.onclick = function() {
     var v = btn.getAttribute('data-m-open');
     document.getElementById(v).classList.add('is-open');
     page.classList.add('no-scroll');
-    // document.querySelector('[data-v="'+ v +'"]').play();
   }
 });
 
-var videoCloseBtns = videoClose;
-videoCloseBtns.forEach(function(btn){
+var modalCloseBtns = modalClose;
+modalCloseBtns.forEach(function(btn){
   btn.onclick = function() {
     var v = btn.closest('.modal');
     v.classList.remove('is-open');
     page.classList.remove('no-scroll');
-    // var c = btn.getAttribute('data-m-close');
-    // document.querySelector('[data-m="'+ c +'"]').remove('is-open');
   }
+});
+
+
+
+
+var phoneInput = document.querySelectorAll('.phone-input')
+var phoneInputs = phoneInput
+phoneInputs.forEach(function(el){
+el.addEventListener('click', function(event) {
+ console.log('press')
+ if( !(event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'Backspace' || event.key == 'Tab')) { event.preventDefault() }
+  var mask = '+381111111111'; 
+
+if (/[0-9\+\ \-\(\)]/.test(event.key)) {
+  var currentString = this.value;
+  var currentLength = currentString.length;
+  if (/[0-9]/.test(event.key)) {
+    if (mask[currentLength] == '1') {
+      this.value = currentString + event.key;
+    } else {
+      for (var i=currentLength; i<mask.length; i++) {
+        if (mask[i] == '1') {
+          this.value = currentString + event.key;
+          break;
+        }
+        currentString += mask[i];
+      }
+    }
+  }
+}
+});
 });
