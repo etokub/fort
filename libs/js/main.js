@@ -3,7 +3,7 @@ function scroll() {
   var s = document.querySelector(".header"),
       e = s.offsetHeight;
   window.addEventListener("scroll", function () {
-      (o = window.scrollY), o >= e + 10 ? s.classList.add("is-down") : s.classList.remove("is-down");
+      (o = window.scrollY), o >= e - 100 ? s.classList.add("is-down") : s.classList.remove("is-down");
   });
 }
 scroll();
@@ -21,7 +21,13 @@ var scroll = new SmoothScroll('a[data-scroll]', {
 	speed: 500,
   speedAsDuration: true,
   updateURL: false,
-  header: '[data-scroll-header]'
+  header: '[data-scroll-header]',
+  offset: function (anchor, toggle) {
+   {
+			return 50;
+		}
+
+	},
 });
 
 var infoSlider = tns({
@@ -42,7 +48,7 @@ var infoSlider = tns({
 });
 
 
-var infoSlider = tns({
+var featuresSlider = tns({
   container: '.features__slider',
   items: 1,
   slideBy: 'page',
@@ -71,33 +77,51 @@ var infoSlider = tns({
 });
 
 
-var infoSlider = tns({
-  container: '.programs__slider',
+var descrSlider = tns({
+  container: '.descr__slider',
   items: 1,
   slideBy: 'page',
-  controls: true,
 	autoplayButtonOutput: false,
-  autoplayTimeout: 4000,
+  autoplayTimeout: 5000,
   mouseDrag: true,
   swipeAngle: false,
-  speed: 1000,
-  gutter: 50,
-  controls: true,
+  speed: 1250,
+  gutter: 0,
+  controls: false,
   autoplay: true,
   nav: false,
-  loop: false,
-  controlsContainer: ".programs__slider-controls",
-  responsive: {
-    768: {
-      edgePadding: 20,
-      gutter: 20,
-      items: 2
-    },
-    1280: {
-      items: 3
-    }
-  }
+  loop: true
+  // controlsContainer: ".programs__slider-controls",
 });
+
+
+// var programsSlider = tns({
+//   container: '.programs__slider',
+//   items: 1,
+//   slideBy: 'page',
+//   controls: true,
+// 	autoplayButtonOutput: false,
+//   autoplayTimeout: 4000,
+//   mouseDrag: true,
+//   swipeAngle: false,
+//   speed: 1000,
+//   gutter: 50,
+//   controls: true,
+//   autoplay: true,
+//   nav: false,
+//   loop: false,
+//   controlsContainer: ".programs__slider-controls",
+//   responsive: {
+//     768: {
+//       edgePadding: 20,
+//       gutter: 20,
+//       items: 2
+//     },
+//     1280: {
+//       items: 3
+//     }
+//   }
+// });
 
 
 const navTgl = document.querySelector("#nav-tgl");
@@ -137,8 +161,8 @@ modalCloseBtns.forEach(function(btn){
 var phoneInput = document.querySelectorAll('.phone-input')
 var phoneInputs = phoneInput
 phoneInputs.forEach(function(el){
-el.addEventListener('click', function(event) {
- console.log('press')
+el.addEventListener('keypress', function(event) {
+
  if( !(event.key == 'ArrowLeft' || event.key == 'ArrowRight' || event.key == 'Backspace' || event.key == 'Tab')) { event.preventDefault() }
   var mask = '+381111111111'; 
 
@@ -160,4 +184,8 @@ if (/[0-9\+\ \-\(\)]/.test(event.key)) {
   }
 }
 });
+el.addEventListener('focus', function(event) {
+  console.log('focus')
+  el.value = "+380"
+}); 
 });
