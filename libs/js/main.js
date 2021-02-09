@@ -95,48 +95,55 @@ var descrSlider = tns({
 });
 
 
-// var programsSlider = tns({
-//   container: '.programs__slider',
-//   items: 1,
-//   slideBy: 'page',
-//   controls: true,
-// 	autoplayButtonOutput: false,
-//   autoplayTimeout: 4000,
-//   mouseDrag: true,
-//   swipeAngle: false,
-//   speed: 1000,
-//   gutter: 50,
-//   controls: true,
-//   autoplay: true,
-//   nav: false,
-//   loop: false,
-//   controlsContainer: ".programs__slider-controls",
-//   responsive: {
-//     768: {
-//       edgePadding: 20,
-//       gutter: 20,
-//       items: 2
-//     },
-//     1280: {
-//       items: 3
-//     }
-//   }
-// });
+
 
 
 const navTgl = document.querySelector("#nav-tgl");
 const navMobile = document.querySelector(".header-navigation");
+const navBtns = document.querySelectorAll(".header-nav__item a");
+const page = document.querySelector("html");
+
+
+function t(){
+  if (navTgl.classList.contains('is-open')) {
+    console.log('element has target class')
+    page.classList.add('no-scroll');
+  } else{
+    page.classList.remove('no-scroll');
+  }
+  }
+
 navTgl.onclick = function() {
   navTgl.classList.toggle('is-open');
   navMobile.classList.toggle('is-open');
+  t();
 }
+var navBtnsList  = navBtns;
+navBtnsList.forEach(function(el){
+  el.onclick = function() {
+    navTgl.classList.remove('is-open');
+    navMobile.classList.remove('is-open')
+    t();
+  }
+});
 
+
+// f(navMobile.classList.contains('is-open')) {
+ 
+// }
+
+// if (navTgl.className == "is-open") {
+  
+//   console.log('hide')
+// } else{
+
+// }
 
 
 const modalOpen = document.querySelectorAll("[data-m-open]");
 const modal = document.querySelector(".modal");
 const modalClose = document.querySelectorAll("[data-m-close]");
-const page = document.querySelector("html");
+
 var modalOpenBtns = modalOpen;
 modalOpenBtns.forEach(function(btn){
   btn.onclick = function() {
@@ -186,6 +193,102 @@ if (/[0-9\+\ \-\(\)]/.test(event.key)) {
 });
 el.addEventListener('focus', function(event) {
   console.log('focus')
-  el.value = "+380"
+  el.value = "+38"
 }); 
 });
+
+
+
+const answers = [];
+const previousButton = document.getElementById("prev-step");
+const nextButton = document.getElementById("next-step");
+const slides = document.querySelectorAll(".quiz-step");
+let currentSlide = 0;
+
+
+
+
+function showNextSlide() {
+  showSlide(currentSlide + 1);
+}
+
+function showPreviousSlide() {
+  showSlide(currentSlide - 1);
+}
+
+
+function showSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  slides[n].classList.add('active');
+  currentSlide = n;
+
+  var bar = document.querySelector(".quiz-progress__bar--line"),
+      counter = document.querySelector(".quiz-progress__counter"),
+      w  = document.querySelector(".quiz-progress").clientWidth,
+      cw = counter.clientWidth / 2,
+      s = slides.length,
+      sl = w / s,
+      cs = n + 1;
+  bar.style.width = sl * cs + "px";
+  counter.style.transform = 'translateX(' + ((sl*cs)-cw) + 'px)';
+ 
+
+
+  document.querySelector(".quiz-progress__counter--current").innerHTML
+  = currentSlide + 1
+  document.querySelector(".quiz-progress__counter--length").innerHTML
+  = slides.length
+
+  var str = Array.prototype.slice.call(document.querySelectorAll('input[data-answer]:checked')).map(function(el){
+      return el.value;
+  }).join(';');
+
+      document.getElementById('results').value = str;
+      var v =  document.getElementById('results').value
+      console.log(v)
+
+  if(currentSlide === 0){
+    previousButton.disabled = true;
+  }
+  else{
+    previousButton.disabled = false
+  }
+  if(currentSlide === slides.length-1){
+    nextButton.style.display = 'none';
+  }
+  else{
+    nextButton.style.display = 'inline-block';
+  }
+}
+
+function quizProgress (){
+  
+}
+
+  showSlide(currentSlide);
+
+  previousButton.addEventListener("click", showPreviousSlide);
+  nextButton.addEventListener("click", showNextSlide);
+
+
+//   const question = document.querySelectorAll(".quiz-question");
+// var questions = question;
+// questions.forEach(function(el){
+//   el.onclick = function() {
+
+//     setTimeout(function() {
+//       showNextSlide(); 
+//       quizProgress()
+//       console.log('click')
+//   }, 500);
+
+   
+//   }
+
+// });
+
+
+function displayRadioValue() { 
+  
+} 
+
