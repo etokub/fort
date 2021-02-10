@@ -96,8 +96,6 @@ var descrSlider = tns({
 
 
 
-
-
 const navTgl = document.querySelector("#nav-tgl");
 const navMobile = document.querySelector(".header__navigation");
 const navBtns = document.querySelectorAll(".header-nav__item a");
@@ -323,121 +321,38 @@ questions.forEach(function(el){
 });
 
 
-// (function() {
-  
-//   var carousels = document.querySelectorAll('[data-quiz-container]');
-  
-//   [].forEach.call(carousels, function(carousel) {
-//     carouselize(carousel);
-//   });
-  
-// })();
 
+window.addEventListener( "load", function () {
+  function sendData() {
+    const XHR = new XMLHttpRequest();
 
-// function carouselize(carousel) {
+    // Bind the FormData object and the form element
+    const FD = new FormData( form );
 
-//   const answers = [];
-//   const previousButtons= document.querySelector("prev-step");
-//   const nextButton = document.querySelector(".next-step");
-//   const slides = document.querySelectorAll(".quiz-step"); 
+    // Define what happens on successful data submission
+    XHR.addEventListener( "load", function(event) {
+      alert( event.target.responseText );
+    } );
 
+    // Define what happens in case of error
+    XHR.addEventListener( "error", function( event ) {
+      alert( 'Oops! Something went wrong.' );
+    } );
 
-// let currentSlide = 0;
+    // Set up our request
+    XHR.open( "POST", "mail.php" );
 
+    // The data sent is what the user provided in the form
+    XHR.send( FD );
+  }
 
+  // Access the form element...
+  const form = document.getElementById( "form-contact" );
 
+  // ...and take over its submit event.
+  form.addEventListener( "submit", function ( event ) {
+    event.preventDefault();
 
-// function showNextSlide() {
-//   showSlide(currentSlide + 1);
-// }
-
-// function showPreviousSlide() {
-//   showSlide(currentSlide - 1);
-// }
-
-
-// function showSlide(n) {
-//   slides[currentSlide].classList.remove('active');
-//   slides[n].classList.add('active');
-//   currentSlide = n;
-
-//   var bar = document.querySelector(".quiz-progress__bar--line"),
-//       counter = document.querySelector(".quiz-progress__counter"),
-//       w  = document.querySelector(".quiz-progress").clientWidth,
-//       cw = counter.clientWidth / 2,
-//       s = slides.length,
-//       sl = w / s,
-//       cs = n + 1;
-//   bar.style.width = sl * cs + "px";
-//   counter.style.transform = 'translateX(' + ((sl*cs)-cw) + 'px)';
- 
-
-
-//   document.querySelector(".quiz-progress__counter--current").innerHTML
-//   = currentSlide + 1
-//   document.querySelector(".quiz-progress__counter--length").innerHTML
-//   = slides.length
-
-//   var str = Array.prototype.slice.call(document.querySelectorAll('input[data-answer]:checked')).map(function(el){
-//       return el.value;
-//   }).join(';');
-
-//       // document.getElementById('results').value = str;
-//       // var v =  document.getElementById('results').value
-
-
-//   if(currentSlide === 0){
-//     previousButtons.style.display = 'none';
-
-
-//   }
-//   else{
-//     // previousButtons.disabled = false
-//     // previousButtons.style.display = 'inline-block';
-  
-//     previousButtons.style.display = 'inline-block';
-    
-
-//   }
-//   if(currentSlide === slides.length-1){
-//     // nextButton.style.display = 'none';
-//   }
-//   else{
-//     // nextButton.style.display = 'inline-block';
-//   }
-// }
-
-// function quizProgress (){
-  
-// }
-
-//   showSlide(currentSlide);
-
-//   var pb  = previousButtons;
-//   pb.forEach(function(btn){
-//     btn.addEventListener("click", showPreviousSlide)
-//   });
-
-//   // pb.addEventListener("click", showPreviousSlide);
-//   // nextButton.addEventListener("click", showNextSlide);
-
-
-//   const question = document.querySelectorAll(".quiz-question");
-// var questions = question;
-// questions.forEach(function(el){
-//   el.onclick = function() {
-
-//     setTimeout(function() {
-//       showNextSlide(); 
-//       quizProgress()
-//       console.log('click')
-//   }, 500);
-
-   
-//   }
-
-// });
-
-
-// }
-
+    sendData();
+  } );
+} );
