@@ -8,6 +8,53 @@ function scroll() {
 }
 scroll();
 
+
+
+function device(){
+  var isMobile = {
+    Android: function() {
+      return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+      return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+      return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+      return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+      return navigator.userAgent.match(/IEMobile/i) || navigator.userAgent.match(/WPDesktop/i);
+    },
+    any: function() {
+      return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+  };
+
+  if( isMobile.any() ) {
+    console.log('mobile');
+    // sticky.destroy();
+  document.querySelector('body').classList.add("touch")
+  var sources = document.querySelectorAll('video.mobile-no-load'); 
+  // loop through the videos
+  sources.forEach(function(source){ 
+      // target the src attribute of the <source> element and set it to the data-src attribute
+      source.remove()
+  }); 
+  } else {
+    console.log('no-mobile');
+    
+ 
+
+  }
+}
+device();
+
+
+
+
+
 lightGallery(document.getElementById('about-gallery'),{
   download: false,
   zoom: false
