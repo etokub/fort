@@ -248,16 +248,18 @@ function showSlide(n) {
       console.log(v)
 
   if(currentSlide === 0){
-    previousButton.disabled = true;
+    // previousButton.disabled = true;
+    previousButton.style.display = 'none';
   }
   else{
-    previousButton.disabled = false
+    // previousButton.disabled = false
+    previousButton.style.display = 'inline-block';
   }
   if(currentSlide === slides.length-1){
-    nextButton.style.display = 'none';
+    // nextButton.style.display = 'none';
   }
   else{
-    nextButton.style.display = 'inline-block';
+    // nextButton.style.display = 'inline-block';
   }
 }
 
@@ -268,24 +270,24 @@ function quizProgress (){
   showSlide(currentSlide);
 
   previousButton.addEventListener("click", showPreviousSlide);
-  nextButton.addEventListener("click", showNextSlide);
+  // nextButton.addEventListener("click", showNextSlide);
 
 
-//   const question = document.querySelectorAll(".quiz-question");
-// var questions = question;
-// questions.forEach(function(el){
-//   el.onclick = function() {
+  const question = document.querySelectorAll(".quiz-question");
+var questions = question;
+questions.forEach(function(el){
+  el.onclick = function() {
 
-//     setTimeout(function() {
-//       showNextSlide(); 
-//       quizProgress()
-//       console.log('click')
-//   }, 500);
+    setTimeout(function() {
+      showNextSlide(); 
+      quizProgress()
+      console.log('click')
+  }, 500);
 
    
-//   }
+  }
 
-// });
+});
 
 
 function displayRadioValue() { 
